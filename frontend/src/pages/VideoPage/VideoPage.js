@@ -4,50 +4,65 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { KEY } from '../../localKey';
 import useAuth from '../../hooks/useAuth';
+import VideoComments from '../../components/VideoComments/VideoComments';
 
 
-const VideoPage = () => {
-    const [user, token] = useAuth();
-    const [videos, viewVideos] = useState([]);
+const VideoPage = (props) => {
+    const [video, setVideo] = useState([]);
+    const [relatedVideos, setRelatedVideos] = useState([]);
     const { videoId } = useParams();
 
     useEffect(() => {
-        getVideos();
-    }, [token]);
+        let mounted = true;
+        if (mounted) {
+            getVideoInfo();
+            getRelatedVideos();
+        }
+        return () => (mounted = false);
+    },  [videoId]);
 
-async function getVideos(){
-    try {
-        let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=4&relatedToVideoId=${videoId}&key=${KEY}`, (videos))
-        console.log(response.data.items);
-        viewVideos(response.data.items);
-    } catch (error) {
-        console.log(error.response.data);
+    async function getVideoInfo(){
+        const response =  await axios.get(
+            `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${KEY}`
+        );
+        setVideo(response["data"]["items"][0]);
+    } 
+    
+
+
+    async function getRelatedVideos() {
+        const response = await axios.get(
+            `https://www.googleapis.com/youtube/v3/search?relatedToVideoId=${videoId}&type=video&key=${KEY}&part=snippet`
+        );
+        setRelatedVideos(response["data"]["items"]);
     }
-}
 
-const VidPlayer = styled.iframe`
-border-radius: 10px;
-display: block;
-margin: auto;
-`
 
 return (
-        <>
-            <div className="title-container">
-                <h1>Results for {user.username}</h1>
+        <div>
+            <div>
+                <div className='videocontainer'>
+                    <div>
+                        <div>
+                            <br></br>
+                        </div>
+
+                        <iframe
+                            id="ytplayer"
+                            type="text/html"
+                            width="640"
+                            height="360"
+                            src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&origin=http://example.com`}
+                            frameBorder="0"
+                        ></iframe>
+                        <VideoComments videoId={video.id} />
+                        <br></br>
+                    </div>
+                </div>
             </div>
-                <div className="vid-player">
-                <VidPlayer title="ytplayer"
-                        type="text/html"
-                        width="460"
-                        height="360"
-                        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&origin=http://example.com`}
-                </VidPlayer>
-                </div>
-                <div>
-                <RelatedVideos VideoArray={videos} />
-                </div>
-        </>
+        </div>
     );
 
-}
+};
+
+export default VideoPage;
