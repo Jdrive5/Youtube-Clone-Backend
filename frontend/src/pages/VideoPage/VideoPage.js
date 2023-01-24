@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import React from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { KEY } from '../../localKey';
 import useAuth from '../../hooks/useAuth';
 import VideoComments from '../../components/VideoComments/VideoComments';
+import "./VideoPage.css";
 
 
 const VideoPage = (props) => {

@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 
 import axios from "axios";
 import { KEY } from "../../localKey"
+import SearchBar from "../../components/SearchBar/SearchBar";
 
 
 const HomePage = () => {
