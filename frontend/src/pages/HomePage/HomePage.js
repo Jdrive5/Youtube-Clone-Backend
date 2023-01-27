@@ -22,7 +22,7 @@ const HomePage = () => {
 
   async function getVideos() {
     try {
-      let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=NBAHighlights&key=${KEY}&part=snippet&type=video&maxResults=4`, (videos));
+      let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=30bIhwuptJU&key=${KEY}&part=snippet&type=video&maxResults=4`, (videos));
       
       console.log(response.data.items);
       setVideos(response.data.items);
