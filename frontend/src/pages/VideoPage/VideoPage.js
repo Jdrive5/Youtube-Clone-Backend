@@ -19,6 +19,13 @@ const VideoPage = () => {
 
 return (
         <div>
+            <button
+                onClick={() => {
+                    getVids();
+                }}
+            >
+                Related Videos
+            </button>    
             <iframe
                 title="main-vid-player"
                 id="player" 
@@ -28,6 +35,9 @@ return (
                 src={`http://www.youtube.com/embed/iUbuI3tT9KU?enablejsapi=1&origin=http://example.com`}
                 frameborder="0"
             ></iframe>
+            <div>
+                <VideoMapper vidArray={videos}/>
+            </div>
         </div>
     );
 

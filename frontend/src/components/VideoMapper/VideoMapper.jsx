@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import VideoList from '../VideoList/VideoList';
+import VidPresenter from '../VidPresenter/VidPresenter';
+import styled from 'styled-components'
+
+const FlexContainer = styled.ul`
+display: flex;
+flex-wrap: wrap;
+`
 
 
-const VideoMapper = ({videos}) => {
+const VideoMapper = ({vidArray}) => {
     return (
-        <div>
-            {videos.map(video => <VideoList key={video.id} video={video}/>)}
-        </div>
+        <FlexContainer>
+            {vidArray.map(el => <VidPresenter key={el.id.videoId} video = {el}/>)}
+        </FlexContainer>
     )
 }
 
