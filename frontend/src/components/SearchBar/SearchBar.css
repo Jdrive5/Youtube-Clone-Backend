@@ -1,0 +1,16 @@
+.searchbar {
+    width: 40rem;
+    margin: auto;
+    text-align: center;
+}
+
+.searchtext {
+    width: 100%;
+    text-align: center;
+}
+
+.searchform {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -4,6 +4,7 @@ import AuthContext from '../../context/AuthContext';
 import { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import './VideoComments.css'
 
 
 const VideoComments = (props) => {

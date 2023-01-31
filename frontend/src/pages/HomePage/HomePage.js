@@ -1,10 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-
+import { DATA } from "../../data";
 import axios from "axios";
 import { KEY } from "../../localKey"
 import SearchBar from "../../components/SearchBar/SearchBar";
+import VideoMapper from "../../components/VideoMapper/VideoMapper";
 
 
 const HomePage = () => {
@@ -12,43 +13,41 @@ const HomePage = () => {
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
   const [user, token] = useAuth();
-  const [videos, setVideos] = useState([]);
+  const [videoSearch, setVideoSearch] = useState(DATA[0]["items"]);
   const [search,setSearch] = useState("");
 
   useEffect(() => {
-    getVideos();
-  }, [token]);
+    let mounted = true
+    if (mounted) {
+
+    }
+    return () => (mounted = false);
+  }, []);
 
 
-  async function getVideos() {
+  const fetchVideos = async () => {
     try {
-      let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=30bIhwuptJU&key=${KEY}&part=snippet&type=video&maxResults=4`, (videos));
+        console.log(search)
+      let response = await axios.get(`https://www.googleapis.com/youtube/v3/search?q=${search}&key=${KEY}&part=snippet&type=video&maxResults=4`,);
       
       console.log(response.data.items);
-      setVideos(response.data.items);
+      setVideoSearch(response.data.items);
+
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error);
     }
-  }
+  };
 
-    function handleSubmit(event) {
-      event.preventDefault();
-      getVideos()
-    }
-   
+  
   return (
-    <>
-      <div className="container">
-        <h1>Home Page for {user.username}!</h1>
+    <div>
+      <div>
+      <SearchBar fetchVideos={fetchVideos} search={search} setSearch={setSearch}/>
+        <div>
+        <VideoMapper vidArray={videoSearch} />
+        </div>
       </div>
-      <div className="search-bar">
-        <form onSubmit={handleSubmit}>
-          <input type="text" value={search} onChange={(event) => setSearch(event.target.value)}/>
-        <button className="button" type="submit">Search</button>
-        </form>
-
-      </div>
-    </>
+    </div>
   );
 };
 

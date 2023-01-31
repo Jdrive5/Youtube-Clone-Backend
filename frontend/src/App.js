@@ -26,11 +26,11 @@ function App() {
           path="/"
           element={
             <PrivateRoute>
-              <HomePage />
+              <VideoPage />
             </PrivateRoute>
           }
         />
-        <Route exact path="/" element={<HomePage />} />
+        <Route exact path="/home" element={<HomePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/:videoId" element={<VideoPage />} />

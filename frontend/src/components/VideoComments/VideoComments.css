@@ -1,0 +1,18 @@
+.commentfont {
+    color: black;
+    display: flex;
+}
+
+.commentbox {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    align-items: flex-start;
+}
+
+.username {
+    color: black;
+    font-size: x-small;
+
+}
