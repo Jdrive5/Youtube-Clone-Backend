@@ -1,11 +1,11 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { DATA } from "../../data";
 import axios from "axios";
 import { KEY } from "../../localKey"
 import SearchBar from "../../components/SearchBar/SearchBar";
 import VideoMapper from "../../components/VideoMapper/VideoMapper";
+import { DATA } from "../../Data";
 
 
 const HomePage = () => {
