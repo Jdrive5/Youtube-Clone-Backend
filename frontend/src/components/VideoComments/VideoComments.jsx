@@ -14,6 +14,7 @@ const VideoComments = (props) => {
     const [likes,setLikes] = useState(0);
     const [dislikes, setDislikes] = useState(0);
     const [user, token] = useAuth();
+    
 
     useEffect(() => {
         let mounted = true;
@@ -38,7 +39,7 @@ const VideoComments = (props) => {
     function handleSubmit(event) {
         event.preventDefault();
         let newComment = {
-            video_id: { videoId }.videoId,
+            video_id: videoId,
             likes: likes,
             dislikes: dislikes,
             text: commentsText,
@@ -47,14 +48,14 @@ const VideoComments = (props) => {
         postComments(newComment);
     }
 
-    const postComments = async (newComment) => {
+    const postComments = async function postComments (newComment) {
         try {
             let response = await axios.post(
                 `http://127.0.0.1:8000/api/comments/post/`,
                 newComment,
                 {
                     headers: {
-                        Authorization: "Bearer" + token,
+                        Authorization: "Bearer " + token,
                     },
                 }
             );
@@ -62,7 +63,7 @@ const VideoComments = (props) => {
                 await fetchComments();
             }
         } catch (error) {
-            console.log(error.response);
+            console.log(newComment);
             alert(error.response);
         }
     };
@@ -93,6 +94,7 @@ const VideoComments = (props) => {
                 {comments.map((comment, index) => {
                     return (
                         <div key={index}>
+                            <link to={`/videopage/${videoId}`}></link>
                             <div className='username'>
                                 <p>{comment.index}</p>
                                 <h1>{comment.user.username}</h1>

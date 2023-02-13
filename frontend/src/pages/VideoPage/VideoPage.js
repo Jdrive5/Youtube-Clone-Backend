@@ -209,7 +209,7 @@ return (
                 width="640" 
                 height="390"
                 src={`http://www.youtube.com/embed/iUbuI3tT9KU?enablejsapi=1&origin=http://example.com`}
-                frameborder="0"
+                frameBorder="0"
             ></iframe>
             <VideoComments videoId={videos} />
             <br></br>
